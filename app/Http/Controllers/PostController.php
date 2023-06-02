@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index() {
-        $post = Post::where('is_published', 1)->first ();
+    public function index()
+    {
+        $post = Post::where('is_published', 1)->first();
         dump($post->title);
-        
+
         echo 'end';
     }
     public function create()
@@ -29,8 +31,8 @@ class PostController extends Controller
                 'is_published' => 1,
             ],
         ];
-        
-        foreach($postsArr as $item) {
+
+        foreach ($postsArr as $item) {
             echo 'ok';
             dump($item);
             Post::create($item);
@@ -40,8 +42,9 @@ class PostController extends Controller
 
     public function update()
     {
+
+
         $post = Post::find(5);
-        
         $post->update([
             'title' => 'update title of post from phpstorm',
             'content' => 'update some interesting content',
@@ -58,5 +61,18 @@ class PostController extends Controller
         echo "deleted";
 
 
+    }
+
+    public function firstOrCreate()
+    {
+        $anotherPost = [
+            'title' => 'anothertitle of post from phpstorm',
+            'content' => 'another some interesting content',
+            'image' => 'anotherimagebla.jpg',
+            'likes' => 50,
+            'is_published' => 1,
+        ];
+        Post::firstOrCreate(['title' => 'anothertitle of post from phpstorm'], $anotherPost);
+        dd('ddddd');
     }
 }
